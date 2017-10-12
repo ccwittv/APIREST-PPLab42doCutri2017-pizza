@@ -39,8 +39,10 @@ $app = new \Slim\App(["settings" => $config]);
 $app->group('/pizza', function () {
  
   $this->get('/', \pizzaApi::class . ':traerTodos');
+
+  $this->get('/{sabor}', \pizzaApi::class . ':traerUno');
  
-  $this->get('/{id}', \pizzaApi::class . ':traerUno');
+  //$this->get('/{id}', \pizzaApi::class . ':traerUno');
 
   $this->post('/', \pizzaApi::class . ':CargarUno');
 

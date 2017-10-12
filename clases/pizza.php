@@ -21,19 +21,19 @@ class pizza
 	}
 
 
-  	/*public function BorrarPersona()
+  	public function BorrarPizza()
 	 {
 	 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
 			$consulta =$objetoAccesoDato->RetornarConsulta("
 				delete 
-				from persona 				
+				from pizza 				
 				WHERE id=:id");	
 				$consulta->bindValue(':id',$this->id, PDO::PARAM_INT);		
 				$consulta->execute();
 				return $consulta->rowCount();
 	 }
 
-	public static function BorrarPersonaPorMail($año)
+	/*public static function BorrarPersonaPorMail($año)
 	 {
 
 			$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
@@ -94,22 +94,20 @@ class pizza
 			$consulta->bindValue(':foto',$this->foto, PDO::PARAM_STR);
 			$consulta->bindValue(':password',$this->password, PDO::PARAM_STR);
 			return $consulta->execute();
-	 }
+	 }*/
 
-	 public function InsertarPersonaParametros()
+	 public function InsertarPizzaParametros()
 	 {
 				$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-				$consulta =$objetoAccesoDato->RetornarConsulta("INSERT into persona (nombre,apellido,mail,sexo,foto,password)values(:nombre,:apellido,:mail,:sexo,:foto,:password)");
-				$consulta->bindValue(':nombre',$this->nombre, PDO::PARAM_STR);
-				$consulta->bindValue(':apellido',$this->apellido, PDO::PARAM_STR);
-				$consulta->bindValue(':mail',$this->mail, PDO::PARAM_STR);
-				$consulta->bindValue(':sexo',$this->sexo, PDO::PARAM_STR);
+				$consulta =$objetoAccesoDato->RetornarConsulta("INSERT into pizza (sabor,tipo,cantidad,foto)values(:sabor,:tipo,:cantidad,:foto)");
+				$consulta->bindValue(':sabor',$this->sabor, PDO::PARAM_STR);
+				$consulta->bindValue(':tipo',$this->tipo, PDO::PARAM_STR);
+				$consulta->bindValue(':cantidad',$this->cantidad, PDO::PARAM_STR);
 				$consulta->bindValue(':foto',$this->foto, PDO::PARAM_STR);
-				$consulta->bindValue(':password',$this->password, PDO::PARAM_STR);
 				$consulta->execute();		
 				return $objetoAccesoDato->RetornarUltimoIdInsertado();
 	 }
-	 public function GuardarPersona()
+	 /*public function GuardarPersona()
 	 {
 
 	 	if($this->id>0)
@@ -122,17 +120,29 @@ class pizza
 	 }*/
 
 
-	/*public static function TraerUnaPersona($id) 
+	public static function TraerUnaPizza($id) 
 	{
 			$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-			$consulta =$objetoAccesoDato->RetornarConsulta("select id, nombre, apellido, mail, sexo, foto, password from persona where id = $id");
+			$consulta =$objetoAccesoDato->RetornarConsulta("select id, sabor, tipo, cantidad, foto from pizza where id = $id");
 			$consulta->execute();
-			$personaBuscada= $consulta->fetchObject('persona');
-			return $personaBuscada;				
+			$pizzaBuscada= $consulta->fetchObject('pizza');
+			return $pizzaBuscada;				
 			
 	}
 
-	public static function TraerUnaPersonaMailArray($id,$mail) 
+	public static function TraerUnaPizzaSabor($sabor) 
+	{
+			$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+			$consulta =$objetoAccesoDato->RetornarConsulta("select id, sabor, tipo, cantidad, foto from pizza WHERE sabor= $sabor");
+			$consulta->bindValue(':sabor', $sabor, PDO::PARAM_STR);
+			$consulta->execute();
+			$pizzaBuscada= $consulta->fetchObject('pizza');
+      		return $pizzaBuscada;				
+
+			
+	}
+
+	/*public static function TraerUnaPersonaMailArray($id,$mail) 
 	{
 			$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
 			$consulta =$objetoAccesoDato->RetornarConsulta("select nombre, apellido, mail, sexo, foto, password from persona  WHERE id=? AND mail=?");

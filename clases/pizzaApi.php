@@ -7,46 +7,60 @@ require_once 'IApiUsable.php';
 
 class pizzaApi extends pizza implements IApiUsable
 {
- 	public function TraerUno($request, $response, $args) {
-     	/*$id=$args['id'];
-        $laPersona=persona::TraerUnaPersona($id);
-        if(!$laPersona)
+ 	
+  /*public function TraerUno($request, $response, $args) {
+     	$id=$args['id'];
+        $laPizza=pizza::TraerUnaPizza($id);
+        if(!$laPizza)
         {
             $objDelaRespuesta= new stdclass();
-            $objDelaRespuesta->error="No esta La Persona";
+            $objDelaRespuesta->error="No está La Pizza";
             $NuevaRespuesta = $response->withJson($objDelaRespuesta, 500); 
         }else
         {
-            $NuevaRespuesta = $response->withJson($laPersona, 200); 
+            $NuevaRespuesta = $response->withJson($laPizza, 200); 
         }     
-        return $NuevaRespuesta;*/
-    }
-     public function TraerTodos($request, $response, $args) {
+        return $NuevaRespuesta;
+    }*/
+
+   public function TraerUno($request, $response, $args) {
+      $sabor=$args['sabor'];
+        $laPizza=pizza::TraerUnaPizzaSabor($sabor);
+        if(!$laPizza)
+        {
+            $objDelaRespuesta= new stdclass();
+            $objDelaRespuesta->error="No esta La Pizza";
+            $NuevaRespuesta = $response->withJson($objDelaRespuesta, 500); 
+        }else
+        {
+            $NuevaRespuesta = $response->withJson($laPizza, 200); 
+        }     
+        return $NuevaRespuesta;
+    }  
+  
+  public function TraerTodos($request, $response, $args) {
       	$todasLasPizzas=pizza::TraerTodasLasPizzas();
      	$newresponse = $response->withJson($todasLasPizzas, 200);  
     	return $newresponse;
     }
-      public function CargarUno($request, $response, $args) {
+  
+  public function CargarUno($request, $response, $args) {
      	
-        /*$objDelaRespuesta= new stdclass();
+        $objDelaRespuesta= new stdclass();
         
         $ArrayDeParametros = $request->getParsedBody();
         //var_dump($ArrayDeParametros);
-        $nombre= $ArrayDeParametros['nombre'];
-        $apellido= $ArrayDeParametros['apellido'];
-        $mail= $ArrayDeParametros['mail'];
-        $sexo= $ArrayDeParametros['sexo'];
+        $sabor= $ArrayDeParametros['sabor'];
+        $tipo= $ArrayDeParametros['tipo'];
+        $cantidad= $ArrayDeParametros['cantidad'];
         $foto= $ArrayDeParametros['foto'];
-        $password= $ArrayDeParametros['password'];
         
-        $mipersona = new persona();
-        $mipersona->nombre=$nombre;
-        $mipersona->apellido=$apellido;
-        $mipersona->mail=$mail;
-        $mipersona->sexo=$sexo;
-        $mipersona->foto=$foto;
-        $mipersona->password=$password;
-        $mipersona->InsertarPersonaParametros();
+        $mipizza = new pizza();
+        $mipizza->sabor=$sabor;
+        $mipizza->tipo=$tipo;
+        $mipizza->cantidad=$cantidad;
+        $mipizza->foto=$foto;
+        $mipizza->InsertarPizzaParametros();
         $archivos = $request->getUploadedFiles();
         $destino="../fotos/";
         //var_dump($archivos);
@@ -57,13 +71,14 @@ class pizzaApi extends pizza implements IApiUsable
             $extension= explode(".", $nombreAnterior)  ;
             //var_dump($nombreAnterior);
             $extension=array_reverse($extension);
-            $archivos['foto']->moveTo($destino.$nombre.$apellido.".".$extension[0]);
+            $archivos['foto']->moveTo($destino.$sabor.$tipo.".".$extension[0]);
         }       
         //$response->getBody()->write("se guardo el cd");
-        $objDelaRespuesta->respuesta="Se guardo la Persona.";   
-        return $response->withJson($objDelaRespuesta, 200);*/
+        $objDelaRespuesta->respuesta="Se guardo la Pizza.";   
+        return $response->withJson($objDelaRespuesta, 200);
     }
-      public function BorrarUno($request, $response, $args) {
+  
+  public function BorrarUno($request, $response, $args) {
      
       /*if (isset($args['id'])
         {
@@ -75,11 +90,11 @@ class pizzaApi extends pizza implements IApiUsable
          $id=$ArrayDeParametros['id'];
         }  */
 
-      /*$id=$args['id'];
+      $id=$args['id'];
 
-     	$persona= new persona();
-     	$persona->id=$id;
-     	$cantidadDeBorrados=$persona->BorrarPersona();
+     	$pizza= new pizza();
+     	$pizza->id=$id;
+     	$cantidadDeBorrados=$pizza->BorrarPizza();
 
      	$objDelaRespuesta= new stdclass();
 	    $objDelaRespuesta->cantidad=$cantidadDeBorrados;
@@ -92,10 +107,10 @@ class pizzaApi extends pizza implements IApiUsable
 	    		$objDelaRespuesta->resultado="no Borro nada!!!";
 	    	}
 	    $newResponse = $response->withJson($objDelaRespuesta, 200);  
-      	return $newResponse;*/
+      	return $newResponse;
     }
      
-     public function ModificarUno($request, $response, $args) {
+  public function ModificarUno($request, $response, $args) {
      	/*
       //$response->getBody()->write("<h1>Modificar  uno</h1>");
      	$ArrayDeParametros = $request->getParsedBody();
