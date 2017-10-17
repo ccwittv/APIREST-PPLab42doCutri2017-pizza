@@ -111,24 +111,22 @@ class pizzaApi extends pizza implements IApiUsable
     }
      
   public function ModificarUno($request, $response, $args) {
-     	/*
       //$response->getBody()->write("<h1>Modificar  uno</h1>");
      	$ArrayDeParametros = $request->getParsedBody();
 	    //var_dump($ArrayDeParametros);    	
-	    $mipersona = new persona();
-	    $mipersona->id=$ArrayDeParametros['id'];
-	    $nombre= $ArrayDeParametros['nombre'];
-        $apellido= $ArrayDeParametros['apellido'];
-        $mail= $ArrayDeParametros['mail'];
-        $sexo= $ArrayDeParametros['sexo'];
-        $password= $ArrayDeParametros['password'];
-
-	   	$resultado =$mipersona->ModificarPersonaParametros();
+	    $mipizza = new pizza();
+	    $mipizza->id=$ArrayDeParametros['id'];
+	    $mipizza->sabor= $ArrayDeParametros['sabor'];
+      $mipizza->tipo= $ArrayDeParametros['tipo'];
+      $mipizza->cantidad= $ArrayDeParametros['cantidad'];
+      $mipizza->foto= $ArrayDeParametros['foto'];
+      //var_dump($mipizza);
+	   	$resultado = $mipizza->ModificarPizzaParametros();
 	   	$objDelaRespuesta= new stdclass();
 		//var_dump($resultado);
-		$objDelaRespuesta->resultado=$resultado;
-        $objDelaRespuesta->tarea="modificar";
-		return $response->withJson($objDelaRespuesta, 200);		*/
+		  $objDelaRespuesta->resultado=$resultado;
+      $objDelaRespuesta->tarea="modificar";
+		  return $response->withJson($objDelaRespuesta, 200);	
     }
 
 

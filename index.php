@@ -6,6 +6,7 @@ use \Psr\Http\Message\UploadedFileInterface as UploadedFile;
 require '/composer/vendor/autoload.php';
 require_once '/clases/AccesoDatos.php';
 require_once '/clases/pizzaApi.php';
+require_once '/clases/ventaApi.php';
 //require_once '/clases/usuarioApi.php';
 //require_once '/clases/loginApi.php';
 //require_once '/clases/AutentificadorJWT.php';
@@ -52,6 +53,25 @@ $app->group('/pizza', function () {
   $this->put('/', \pizzaApi::class . ':ModificarUno');
      
 })->add(\MWparaCORS::class . ':HabilitarCORSTodos');
+
+/*LLAMADA A METODOS DE INSTANCIA DE LA CLASE ventaApi*/
+$app->group('/venta', function () {
+ 
+  $this->get('/', \ventaApi::class . ':traerTodos');
+
+  $this->get('/{sabor}', \ventaApi::class . ':traerUno');
+ 
+  //$this->get('/{id}', \ventaApi::class . ':traerUno');
+
+  $this->post('/', \ventaApi::class . ':CargarUno');
+
+  //$this->delete('/', \ventaApi::class . ':BorrarUno');
+  $this->delete('/{id}', \ventaApi::class . ':BorrarUno');
+
+  $this->put('/', \ventaApi::class . ':ModificarUno');
+     
+})->add(\MWparaCORS::class . ':HabilitarCORSTodos');
+
 
 
 $app->run();

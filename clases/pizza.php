@@ -72,29 +72,25 @@ class pizza
 				return $objetoAccesoDato->RetornarUltimoIdInsertado();
 				
 
-	 }
+	 } */
 
-	  public function ModificarPersonaParametros()
+	  public function ModificarPizzaParametros()
 	 {
 			$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
 			$consulta =$objetoAccesoDato->RetornarConsulta("
-				update persona 
-				set nombre=:nombre,
-				apellido=:apellido,
-				mail=:mail,
-				sexo=:sexo,
-				foto=:foto',
-				password=:password
+				update pizza 
+				set sabor=:sabor,
+				tipo=:tipo,
+				cantidad=:cantidad,
+				foto=:foto
 				WHERE id=:id");
 			$consulta->bindValue(':id',$this->id, PDO::PARAM_INT);
-			$consulta->bindValue(':nombre',$this->nombre, PDO::PARAM_STR);
-			$consulta->bindValue(':apellido',$this->apellido, PDO::PARAM_STR);
-			$consulta->bindValue(':mail',$this->mail, PDO::PARAM_STR);
-			$consulta->bindValue(':sexo',$this->sexo, PDO::PARAM_STR);
+			$consulta->bindValue(':sabor',$this->sabor, PDO::PARAM_STR);
+			$consulta->bindValue(':tipo',$this->tipo, PDO::PARAM_STR);
+			$consulta->bindValue(':cantidad',$this->cantidad, PDO::PARAM_STR);
 			$consulta->bindValue(':foto',$this->foto, PDO::PARAM_STR);
-			$consulta->bindValue(':password',$this->password, PDO::PARAM_STR);
 			return $consulta->execute();
-	 }*/
+	 }
 
 	 public function InsertarPizzaParametros()
 	 {
